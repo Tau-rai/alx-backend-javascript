@@ -11,12 +11,17 @@ const app = http.createServer((req, res) => {
   if (req.url === '/') {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
-    res.write('This is the list of our students\n');
+    const originalConsoleLog = console.log;
+    const logs = [];
+    console.log = (message) => logs.push(message);
+
     countStudents(f)
       .then(() => {
-        res.end();
+        console.log = originalConsoleLog;
+        res.end(`This is the list of our students\n${logs.join('\n')}`);
       })
       .catch((error) => {
+        res.statusCode = 500;
         res.end(error.message);
       });
   } else {
