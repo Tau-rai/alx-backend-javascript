@@ -2,7 +2,7 @@ const express = require('express');
 const AppController = require('../controllers/AppController');
 const StudentsController = require('../controllers/StudentsController');
 
-// index 
+// index
 const router = express.Router();
 
 router.get('/', AppController.index);
