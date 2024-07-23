@@ -3,6 +3,7 @@ node_modules/
 
 # Ignore the testing files
 *main.js
+*main_*.js
 
 # Ignore log files
 *.log
