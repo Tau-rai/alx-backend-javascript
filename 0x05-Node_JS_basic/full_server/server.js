@@ -1,12 +1,17 @@
-const express = require('express');
-const routes = require('./routes/index');
+// server.js
+import express from 'express';
+import router from './routes';
 
-// server module
 const app = express();
+const port = 1245;
+
+// Middleware to inject the database file path into the request
+app.use((request, response, next) => {
+  request.databaseFilePath = './database.csv'; // Path to the database file
+  next();
+});
 
 app.use('/', routes);
-
-const port = 1245;
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

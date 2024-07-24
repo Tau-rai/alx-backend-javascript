@@ -1,8 +1,8 @@
 // full_server/utils.js
 
-const fs = require('fs').promises;
+import fs  from'fs/promises';
 
-async function readDatabase(filePath) {
+const readDatabase = async (filePath) => {
   try {
     const data = await fs.readFile(filePath, 'utf8');
     // Process the data and extract first names per fields (modify as needed)
@@ -20,6 +20,6 @@ async function readDatabase(filePath) {
   } catch (error) {
     throw new Error(`Error reading database: ${error.message}`);
   }
-}
+};
 
 module.exports = readDatabase;
