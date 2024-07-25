@@ -1,0 +1,11 @@
+{
+  "name": "0x06-unittests_in_js",
+  "version": "1.0.0",
+  "description": "mocha tests",
+  "main": "0-calcu.js",
+  "scripts": {
+    "test": "mocha --require assert"
+  },
+  "author": "",
+  "license": "ISC"
+}
