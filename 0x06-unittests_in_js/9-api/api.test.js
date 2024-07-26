@@ -1,46 +1,41 @@
 // regex integration test
+const request = require('request');
+const chai = require('chai');
+const expect = chai.expect;
 
-const request = require('supertest');
-const assert = require('assert');
-const app = require('./api');
+describe('Index Page', () => {
+    const url = 'http://localhost:7865';
 
-describe('GET /', () => {
-    it('checks status code of GET /', (done) => {
-        request(app)
-        .get('/')
-        .expect(200, done);
+    it('should return status 200', (done) => {
+        request(url, (error, response, body) => {
+            expect(response.statusCode).to.equal(200);
+            done();
+        });
     });
 
-    it('checks response message of GET /', (done) => {
-        request(app)
-        .get('/')
-        .end((err, res) => {
-            if (err) return done(err);
-            assert.strictEqual(res.text, 'Welcome to the payment system');
+    it('should return the correct message', (done) => {
+        request(url, (error, response, body) => {
+            expect(body).to.equal('Welcome to the payment system');
             done();
         });
     });
 });
     
-describe('GET /cart/7', () => {
-    it('checks status code of GET /cart/7', (done) => {
-        request(app)
-        .get('/cart/7')
-        .expect(200, done);
-    });
-
-    it('checks response message of GET /cart/7', (done) => {
-        request(app)
-        .get('/cart/7')
-        .end((err, res) => {
-            if (err) return done(err);
-            assert.strictEqual(res.text, 'Payment methods for cart 7');
+describe('GET Cart Page', () => {
+    const url = 'http://localhost:7865/cart/';
+    it('checks status code 200 when :id is a number', (done) => {
+        request(`${url}7`, (error, response, body) => {
+            expect(response.statusCode).to.equal(200);
+            expect(body).to.equal('Payment methods for cart 7');
             done();
         });
     });
-    it('checks status code of GET /cart/xyz', (done) => {
-        request(app)
-        .get('/cart/xyz')
-        .expect(404, done);
+
+    it('should return status 404 when :id is not a number', (done) => {
+        request(`${url}xyz`, (error, response, body) => {
+            expect(response.statusCode).to.equal(404);
+            expect(body).to.equal('Cart ID must be a number');
+            done();
+        });
     });
 });
