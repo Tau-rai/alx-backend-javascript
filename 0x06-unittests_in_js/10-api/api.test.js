@@ -1,5 +1,4 @@
 const request = require('supertest');
-const express = require('express');
 const assert = require('assert');
 const chai = require('chai');
 const expect = chai.expect;
@@ -65,11 +64,11 @@ describe('Login', () => {
     it('POST /login returns the correct message', (done) => {
         request(app)
             .post('/login')
-            .send({ userName: 'Alice' })
+            .send({ userName: 'Betty' })
             .expect(200)
             .end((err, res) => {
                 if (err) return done(err);
-                assert.strictEqual(res.text, 'Welcome Alice');
+                assert.strictEqual(res.text, 'Welcome Betty');
                 done();
             });
     });
